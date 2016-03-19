@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <title>My Paint</title>
+    <style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    #c {
+        width: 600px;
+        height: 600px;
+        border: 1px solid #000;
+    }
+    </style>
+    <script type="text/javascript">
+    window.onload = function() {
+        var canvas = document.getElementById('c'),
+            isBegin = false,
+            cxt = canvas.getContext('2d'),
+            touch;
+
+        cxt.lineWidth = 2;
+        cxt.strokeStyle = '#000';
+
+        canvas.addEventListener('touchstart', function(e) {
+            e.preventDefault(); //阻止了浏览器继续处理触摸事件 (这同样也阻止了鼠标事件的传递)
+            touch = e.touches[0]; //多点触控的第一个
+            beginPaint({
+                x: touch.pageX,
+                y: touch.pageY
+            });
+        });
+
+        canvas.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+            if (isBegin) {
+                touch = e.touches[0];
+                movePaint({
+                    x: touch.pageX,
+                    y: touch.pageY
+                });
+            }
+        });
+
+        canvas.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            endPaint();
+        });
+
+        function beginPaint(point) {
+            isBegin = true;
+            cxt.moveTo(point.x, point.y);
+        }
+
+        function movePaint(point) {
+            if (isBegin) {
+                cxt.lineTo(point.x, point.y);
+                cxt.stroke();
+            }
+        }
+
+        function endPaint() {
+            isBegin = false;
+        }
+    }
+    </script>
+</head>
+
+<body>
+    <canvas id="c">Error!</canvas>
+</body>
+
+</html>
