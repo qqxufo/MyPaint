@@ -18,15 +18,22 @@
     <div class="container">
         <canvas id="paint_area">Error!</canvas>
         <div id="toolbar">
-            <div>
+            <div class="range-box">
                 <span>画笔粗细：</span>
                 <input type="range" id="font_weight" min="1" max="30" value="1">
                 <em id="font_weight_value"></em>
             </div>
-            <div>
+            <div class="color-box">
                 <span>画笔颜色：</span>
                 <input type="color" id="font_color">
                 <em id="font_color_value"></em>
+            </div>
+            <div class="btn-box">
+                <button id="clean_btn">清空画布</button>
+                <button id="output_btn">生成图片</button>
+            </div>
+            <div id="output">
+                <a href="" id="output_img" target="_blank"></a>
             </div>
         </div>
     </div>

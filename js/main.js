@@ -5,9 +5,12 @@
         font_weight_value = document.getElementById('font_weight_value'),
         font_color = document.getElementById('font_color'),
         font_color_value = document.getElementById('font_color_value'),
+        clean_btn = document.getElementById('clean_btn'),
+        output_btn = document.getElementById('output_btn'),
+        output = document.getElementById('output'),
         canvasWidth = Math.min(550, document.body.scrollWidth * 0.8),
-        cxt = canvas.getContext('2d'),
         canvasHeight = canvasWidth,
+        ctx = canvas.getContext('2d'),
         isPress = false,
         strokeStyle = '#000',
         lineWidth = font_weight.value,
@@ -30,6 +33,18 @@
         font_color_value.innerText = this.value;
         strokeStyle = this.value;
     });
+
+    // 清空画布
+    clean_btn.onclick = function() {
+        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+    };
+
+    // 生成图片
+    output_btn.onclick = function() {
+        var output_img = document.getElementById('output_img');
+        output_img.href = canvas.toDataURL('image/png');
+        output_img.innerHTML= '点我查看图片';
+    };
 
     // 添加触屏监听事件
     canvas.addEventListener('touchstart', function(e) {
@@ -68,18 +83,18 @@
     // 绘图处理
     function beginPaint(point) {
         isPress = true;
-        cxt.beginPath();
-        cxt.strokeStyle = strokeStyle;
-        cxt.lineWidth = lineWidth;
-        cxt.lineCap = lineCap;
-        cxt.lineJoin = lineJoin;
-        cxt.moveTo(point.x, point.y);
+        ctx.beginPath();
+        ctx.strokeStyle = strokeStyle;
+        ctx.lineWidth = lineWidth;
+        ctx.lineCap = lineCap;
+        ctx.lineJoin = lineJoin;
+        ctx.moveTo(point.x, point.y);
     }
 
     function movePaint(point) {
         if (isPress) {
-            cxt.lineTo(point.x, point.y);
-            cxt.stroke();
+            ctx.lineTo(point.x, point.y);
+            ctx.stroke();
         }
     }
 

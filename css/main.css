@@ -18,3 +18,15 @@
 #toolbar {
     margin: 10px auto;
 }
+
+.range-box {
+    display: inline-block;
+}
+
+.color-box {
+    display: inline-block;
+}
+
+.btn-box {
+    display: inline-block;
+}
