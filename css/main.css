@@ -1,0 +1,20 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+}
+
+#paint_area {
+    border: 1px solid #000;
+    display: block;
+    margin: 0 auto;
+}
+
+#toolbar {
+    margin: 10px auto;
+}

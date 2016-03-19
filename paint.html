@@ -3,98 +3,34 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="
+            width = device-width,
+            height = device-height,
+            inital-scale = 1.0,
+            minimum-scale = 1.0,
+            maximum-scale = 1.0,
+            user-scalable = no">
     <title>My Paint</title>
-    <style type="text/css">
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-    
-    #c {
-        border: 1px solid #000;
-    }
-    </style>
-    <script type="text/javascript">
-    window.onload = function() {
-        var canvas = document.getElementById('c'),
-            cxt = canvas.getContext('2d'),
-            isPress = false,
-            touch;
-
-        canvas.width = document.body.scrollWidth;
-        canvas.height = document.body.scrollHeight;
-        cxt.strokeStyle = '#000';
-        cxt.lineCap = "round";
-
-        canvas.addEventListener('touchstart', function(e) {
-            e.preventDefault(); //阻止了浏览器继续处理触摸事件 (这同样也阻止了鼠标事件的传递)
-            touch = e.touches[0]; //多点触控的第一个
-            beginPaint({
-                x: touch.pageX,
-                y: touch.pageY
-            });
-        });
-
-        canvas.addEventListener('touchmove', function(e) {
-            e.preventDefault();
-            if (isPress) {
-                touch = e.touches[0];
-                movePaint({
-                    x: touch.pageX,
-                    y: touch.pageY
-                });
-            }
-        });
-
-        canvas.addEventListener('touchend', function(e) {
-            e.preventDefault();
-            endPaint();
-        });
-
-
-        canvas.addEventListener('mousedown', function(e) {
-            e.preventDefault();
-            beginPaint({
-                x: e.clientX,
-                y: e.clientY
-            });
-        });
-        canvas.addEventListener('mousemove', function(e) {
-            e.preventDefault();
-            if (isPress) {
-                movePaint({
-                    x: e.clientX,
-                    y: e.clientY
-                });
-            }
-        });
-        canvas.addEventListener('mouseup', function(e) {
-            e.preventDefault();
-            endPaint();
-        });
-
-        function beginPaint(point) {
-            isPress = true;
-            cxt.moveTo(point.x, point.y);
-        }
-
-        function movePaint(point) {
-            if (isPress) {
-                cxt.lineTo(point.x, point.y);
-                cxt.stroke();
-            }
-        }
-
-        function endPaint() {
-            isPress = false;
-        }
-    }
-    </script>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 
 <body>
-    <canvas id="c">Error!</canvas>
+    <div class="container">
+        <canvas id="paint_area">Error!</canvas>
+        <div id="toolbar">
+            <div>
+                <span>画笔粗细：</span>
+                <input type="range" id="font_weight" min="1" max="30" value="1">
+                <em id="font_weight_value"></em>
+            </div>
+            <div>
+                <span>画笔颜色：</span>
+                <input type="color" id="font_color">
+                <em id="font_color_value"></em>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/main.js"></script>
 </body>
 
 </html>
