@@ -20,12 +20,14 @@
     <script type="text/javascript">
     window.onload = function() {
         var canvas = document.getElementById('c'),
-            isBegin = false,
             cxt = canvas.getContext('2d'),
+            isPress = false,
             touch;
 
-        cxt.lineWidth = 2;
+        canvas.width = 600;
+        canvas.height = 600;
         cxt.strokeStyle = '#000';
+        cxt.lineCap = "round";
 
         canvas.addEventListener('touchstart', function(e) {
             e.preventDefault(); //阻止了浏览器继续处理触摸事件 (这同样也阻止了鼠标事件的传递)
@@ -38,7 +40,7 @@
 
         canvas.addEventListener('touchmove', function(e) {
             e.preventDefault();
-            if (isBegin) {
+            if (isPress) {
                 touch = e.touches[0];
                 movePaint({
                     x: touch.pageX,
@@ -52,20 +54,42 @@
             endPaint();
         });
 
+
+        canvas.addEventListener('mousedown', function(e) {
+            e.preventDefault();
+            beginPaint({
+                x: e.clientX,
+                y: e.clientY
+            });
+        });
+        canvas.addEventListener('mousemove', function(e) {
+            e.preventDefault();
+            if (isPress) {
+                movePaint({
+                    x: e.clientX,
+                    y: e.clientY
+                });
+            }
+        });
+        canvas.addEventListener('mouseup', function(e) {
+            e.preventDefault();
+            endPaint();
+        });
+
         function beginPaint(point) {
-            isBegin = true;
+            isPress = true;
             cxt.moveTo(point.x, point.y);
         }
 
         function movePaint(point) {
-            if (isBegin) {
+            if (isPress) {
                 cxt.lineTo(point.x, point.y);
                 cxt.stroke();
             }
         }
 
         function endPaint() {
-            isBegin = false;
+            isPress = false;
         }
     }
     </script>
