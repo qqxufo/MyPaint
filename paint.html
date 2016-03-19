@@ -12,8 +12,6 @@
     }
     
     #c {
-        width: 600px;
-        height: 600px;
         border: 1px solid #000;
     }
     </style>
@@ -24,8 +22,8 @@
             isPress = false,
             touch;
 
-        canvas.width = 600;
-        canvas.height = 600;
+        canvas.width = document.body.scrollWidth;
+        canvas.height = document.body.scrollHeight;
         cxt.strokeStyle = '#000';
         cxt.lineCap = "round";
 
