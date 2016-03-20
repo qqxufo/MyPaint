@@ -1,4 +1,4 @@
-﻿window.onload = function() {
+﻿(function() {
     var canvas = document.getElementById('paint_area'),
         toolbar = document.getElementById('toolbar'),
         font_weight = document.getElementById('font_weight'),
@@ -42,8 +42,8 @@
     // 生成图片
     output_btn.onclick = function() {
         var output_img = document.getElementById('output_img');
-        output_img.href = canvas.toDataURL('image/png');
-        output_img.innerHTML= '点我查看图片';
+        output_img.href = canvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
+        output_img.innerHTML = '点击下载';
     };
 
     // 添加触屏监听事件
@@ -107,4 +107,4 @@
         var bbox = canvas.getBoundingClientRect()
         return { x: Math.round(x - bbox.left), y: Math.round(y - bbox.top) }
     }
-}
+})();
